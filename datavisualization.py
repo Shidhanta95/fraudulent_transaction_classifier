@@ -5,13 +5,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.ticker as mticker 
-from data_preprocess import analyse_data
+from data_preprocess import data_preprocess
 
 
 def visualise_data():
     #heatmap
     # data, numerical_features, categorical_features = feature_engineer()
-    data, numerical_features, categorical_features  = analyse_data()
+    data, numerical_features, categorical_features  = data_preprocess()
     # data_n = data[['step', 'amount', 'oldbalanceOrg', 'newbalanceOrig', 'oldbalanceDest',
     #    'newbalanceDest', 'isFraud', 'isFlaggedFraud', 'New_TotalOrig',
     #    'New_TotalDest', 'New_TotalMeanOrig', 'New_TotalMeanDest',
@@ -28,8 +28,7 @@ def visualise_data():
     
     
     data_num = data[numerical_features]
-    data_num_mod = data_num.drop(['step','isFlaggedFraud'],axis=1)
-    corr = data_num_mod.corr()
+    corr = data_num.corr()
     plt.figure(figsize = (6,4))
     mp = sns.heatmap(corr, linewidth = 1 ,vmin=-1, vmax=1, center=0,  annot=True, cmap="coolwarm", fmt=".2f")
     plt.show()
@@ -92,5 +91,3 @@ def visualise_data():
         plt.show()
        
     return data 
-
-visualise_data()
